@@ -9,7 +9,9 @@ FROM players t1 left join teams t2 on t1.team_id=t2.team_id
 WHERE t1.player_id = 3
 
 /**3. What is the total number of players in each team?**/
-
+SELECT t2.team_name, COUNT(t1.player_id) as 'Number_of_players'
+FROM Players t1 left join Teams t2 on t1.team_id=t2.team_id
+group by t2.team_name
 
 /**4. What is the team name and captain name of the team with team_id = 2?**/
 
