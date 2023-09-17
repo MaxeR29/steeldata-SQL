@@ -54,3 +54,9 @@ group by t1.team_id, t2.team_name
 
 
 /**10. What is the date and the score of the match with match_id = 3?**/
+SELECT t1.match_date, t2.team_name as 'Team_1', t1.score_team1
+, ':', t1.score_team2, t3.team_name as 'Team_2'
+--Format Team1-Score1-Score2-Team2 used to make it look like a real match result
+FROM Matches t1 left join teams t2 on t1.team1_id = t2.team_id
+				left join teams t3 on t1.team2_id = t3.team_id
+Where t1.Match_id = 3
