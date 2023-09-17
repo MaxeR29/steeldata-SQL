@@ -35,7 +35,16 @@ WHERE t1.country = 'USA'
 GROUP BY t1.team_name
 
 /**8. Which team won the most matches?**/
-
+with winner as 
+(
+  SELECT winner_id, count(match_id) as 'Amount_win', 
+ROW_NUMBER() over (order by count(match_id) desc, winner_id) as 'Top_winner'
+FROM Matches
+group by winner_id
+  )
+Select t1.*, t2.amount_win
+from Teams t1 left join winner t2 on t1.Team_id = t2.winner_id
+WHERE t2.top_winner = 1
 
 /**9. What are the team names and the number of players in each team whose salary is greater than 100,000?**/
 
