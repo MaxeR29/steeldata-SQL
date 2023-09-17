@@ -14,7 +14,9 @@ FROM Players t1 left join Teams t2 on t1.team_id=t2.team_id
 group by t2.team_name
 
 /**4. What is the team name and captain name of the team with team_id = 2?**/
-
+SELECT t1.team_name, t2.player_name
+FROM Teams t1 left join Players t2 on t1.team_id = t2.team_id and t1.captain_id = t2.player_id
+WHERE t1.team_id = 2
 
 /**5. What are the player names and their roles in the team with team_id = 1?**/
 
