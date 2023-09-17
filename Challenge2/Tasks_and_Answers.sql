@@ -29,7 +29,10 @@ FROM Matches t1 left join Teams t2 on t1.winner_id=t2.team_id
 order by t1.match_id
 
 /**7. What is the average salary of players in the teams with country 'USA'?**/
-
+SELECT t1.team_name, Round(AVG(t2.salary), 2)
+FROM Teams t1 left join Players t2 on t1.team_id = t2.team_id
+WHERE t1.country = 'USA'
+GROUP BY t1.team_name
 
 /**8. Which team won the most matches?**/
 
