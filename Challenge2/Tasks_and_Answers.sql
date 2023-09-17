@@ -4,7 +4,9 @@ FROM Players
 WHERE Salary > 100000
 
 /**2. What is the team name of the player with player_id = 3?**/
-
+SELECT t1.player_id, t1.team_id, t2.team_name 
+FROM players t1 left join teams t2 on t1.team_id=t2.team_id
+WHERE t1.player_id = 3
 
 /**3. What is the total number of players in each team?**/
 
