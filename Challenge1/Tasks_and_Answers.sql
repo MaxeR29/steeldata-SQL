@@ -47,4 +47,18 @@ AND t2.style = 'SUV'
 group by t2.style
 
 /**9. What is the name and city of the salesperson who sold the most number of cars in the year 2023?**/
+WITH top_amount AS 
+(
+  SELECT salesman_id, 
+		row_number() over (order by COUNT(sale_id) desc, salesman_id) as 'top_amount' 
+from sales
+WHERE strftime('%Y', purchase_date) = '2023'
+group by salesman_id
+  )
+  SELECT t1.salesman_id, t2.name, t2.city
+FROM sales t1 left join salespersons t2 on t1.salesman_id = t2.salesman_id
+			LEFT JOIN top_amount t3 on t1.salesman_id = t3.salesman_id
+WHERE t3.top_amount = 1 
+GROUP BY t1.salesman_id, t2.name, t2.city
+
 /**10. What is the name and age of the salesperson who generated the highest revenue in the year 2022?**/
