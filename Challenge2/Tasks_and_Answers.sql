@@ -19,7 +19,9 @@ FROM Teams t1 left join Players t2 on t1.team_id = t2.team_id and t1.captain_id 
 WHERE t1.team_id = 2
 
 /**5. What are the player names and their roles in the team with team_id = 1?**/
-
+SELECT t1.team_id, t2.player_name, t2.role
+FROM Teams t1 left join Players t2 on t1.team_id = t2.team_id 
+WHERE t1.team_id = 1
 
 /**6. What are the team names and the number of matches they have won?**/
 
