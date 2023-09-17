@@ -47,6 +47,10 @@ from Teams t1 left join winner t2 on t1.Team_id = t2.winner_id
 WHERE t2.top_winner = 1
 
 /**9. What are the team names and the number of players in each team whose salary is greater than 100,000?**/
+SELECT t1.team_id, t2.team_name, count(t1.player_id) as 'Players_with_salary_greater_than_100000'
+FROM Players t1 left join Teams t2 on t1.team_id=t2.team_id
+WHERE t1.Salary > 100000
+group by t1.team_id, t2.team_name
 
 
 /**10. What is the date and the score of the match with match_id = 3?**/
