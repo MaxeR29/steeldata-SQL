@@ -24,7 +24,9 @@ FROM Teams t1 left join Players t2 on t1.team_id = t2.team_id
 WHERE t1.team_id = 1
 
 /**6. What are the team names and the number of matches they have won?**/
-
+SELECT t2.team_name, t1.match_id
+FROM Matches t1 left join Teams t2 on t1.winner_id=t2.team_id
+order by t1.match_id
 
 /**7. What is the average salary of players in the teams with country 'USA'?**/
 
