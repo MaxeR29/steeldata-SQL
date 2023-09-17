@@ -1,5 +1,7 @@
 /**1. What are the names of the players whose salary is greater than 100,000?**/
-
+SELECT player_name, salary 
+FROM Players
+WHERE Salary > 100000
 
 /**2. What is the team name of the player with player_id = 3?**/
 
