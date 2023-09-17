@@ -62,3 +62,16 @@ WHERE t3.top_amount = 1
 GROUP BY t1.salesman_id, t2.name, t2.city
 
 /**10. What is the name and age of the salesperson who generated the highest revenue in the year 2022?**/
+WITH list_top_revenue AS
+(
+  SELECT t1.salesman_id, SUM(t2.cost_$) as 'Total_revenue',
+ROW_NUMBER() OVER (order by SUM(t2.cost_$) DESC, t1.salesman_id) as 'Top_revenue'
+FROM sales t1 left join cars t2 on t1.car_id=t2.car_id
+WHERE strftime('%Y', t1.purchase_date) = '2022'
+GROUP BY t1.salesman_id
+  )
+SELECT t3.salesman_id, t4.name, t4.age, t5.Total_revenue
+FROM sales t3 left join salespersons t4 on t3.salesman_id=t4.salesman_id
+			left join list_top_revenue t5 on t3.salesman_id=t5.salesman_id
+WHERE t5.Top_revenue = 1 
+GROUP BY t3.salesman_id, t4.name, t4.age, t5.Total_revenue
