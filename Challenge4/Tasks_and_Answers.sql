@@ -84,3 +84,19 @@ GROUP BY CustomerID
  WHERE t2.Top_Total = 1
 
 /**10. Which branch has the highest number of transactions in the Transactions table?**/
+with top_transactions as 
+(
+  SELECT t1.BranchID, COUNT(t2.TransactionID) as 'count_transactions'
+from Accounts t1 join Transactions t2 on t1.AccountID = t2.AccountID
+GROUP BY t1.BranchID
+HAVING COUNT(t2.TransactionID) = 
+(SELECT MAX(_count) FROM 
+ (
+  SELECT t1.BranchID, COUNT(t2.TransactionID) as '_count'
+from Accounts t1 join Transactions t2 on t1.AccountID = t2.AccountID
+GROUP BY t1.BranchID
+   )
+ )
+)
+SELECT t3.BranchID, t3.BranchName, t4.count_transactions 
+FROM Branches t3 join top_transactions t4 on t3.BranchID = t4.BranchID
