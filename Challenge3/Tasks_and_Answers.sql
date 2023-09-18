@@ -23,6 +23,10 @@ from baskets t1 left join products t2 on t1.product_id = t2.product_id
 group by t2.category
 
 /**6. What is the average price of products in the 'food' category?**/
+SELECT AVG(price) as 'Average price of products'
+FROM products
+WHERE category = 'food'
+
 /**7. How many orders were made in each sales channel (sales_channel column) in the orders table?**/
 /**8.What is the date of the latest order made by a customer who can receive marketing emails?**/
 /**9. What is the name of the country with the highest number of orders?**/
