@@ -8,6 +8,10 @@ Select COUNT(AccountID) as 'Number of Accounts'
 from Accounts
 
 /**3. What is the total balance of all checking accounts?**/
+Select SUM(Balance) as 'Total Balance'
+from Accounts
+WHERE AccountType = 'Checking'
+
 /**4. What is the total balance of all accounts associated with customers who live in Los Angeles?**/
 /**5. Which branch has the highest average account balance?**/
 /**6. Which customer has the highest current balance in their accounts?**/
