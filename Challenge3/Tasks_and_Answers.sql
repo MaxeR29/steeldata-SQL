@@ -55,3 +55,9 @@ group by country_id
   WHERE t2.top_amount = 1
 
 /**10. What is the average age of customers who made orders in the 'vitamins' product category?**/
+select ROUND(AVG(t1.age), 2) as 'Average Age, point 2',
+ROUND(AVG(t1.age), 0) as 'Average Age, point 0'
+from customers t1 inner join orders t2 on t1.customer_id=t2.customer_id
+				inner join baskets t3 on t2.order_id = t3.order_id
+				inner join products t4 on t3.product_id = t4.product_id
+where t4.category = 'vitamins'
