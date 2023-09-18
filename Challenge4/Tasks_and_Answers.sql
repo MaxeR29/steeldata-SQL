@@ -29,6 +29,18 @@ GROUP BY BranchID
  WHERE t2.Top_Average = 1
 
 /**6. Which customer has the highest current balance in their accounts?**/
+with customer_balance as
+(
+SELECT CustomerID,
+row_number() over (Order by SUM(Balance) DESC, CustomerID) as 'Top_Balance'
+FROM Accounts
+GROUP BY CustomerID
+ORDER BY SUM(Balance) DESC
+  )
+  SELECT t1.FirstName || ' ' || t1.LastName as 'Full Name' 
+  from Customers t1 join customer_balance t2 on t1.CustomerID = t2.CustomerID
+  WHERE t2.Top_Balance = 1
+
 /**7. Which customer has made the most transactions in the Transactions table?**/
 /**8.Which branch has the highest total balance across all of its accounts?**/
 /**9. Which customer has the highest total balance across all of their accounts, including savings and checking accounts?**/
