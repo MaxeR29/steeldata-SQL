@@ -4,6 +4,9 @@ FROM Customers
 WHERE City = 'New York'
 
 /**2. What is the total number of accounts in the Accounts table?**/
+Select COUNT(AccountID) as 'Number of Accounts'
+from Accounts
+
 /**3. What is the total balance of all checking accounts?**/
 /**4. What is the total balance of all accounts associated with customers who live in Los Angeles?**/
 /**5. Which branch has the highest average account balance?**/
