@@ -17,8 +17,17 @@ Select SUM(BALANCE) as 'Total Balance'
 from Accounts t1 left join Customers t2 on t1.CustomerID = t2.CustomerID
 WHERE t2.City = 'Los Angeles'
 
-
 /**5. Which branch has the highest average account balance?**/
+with top_average_branch as
+(
+SELECT BranchID, ROUND(AVG(Balance), 2) as 'Average',
+ROW_NUMBER() OVER (order by ROUND(AVG(Balance), 2) DESC, BranchID) as 'Top_Average'
+FROM Accounts
+GROUP BY BranchID
+  )
+ SELECT t1.BranchID, t1.BranchName FROM Branches t1 join top_average_branch t2 on t1.BranchID = t2.BranchID
+ WHERE t2.Top_Average = 1
+
 /**6. Which customer has the highest current balance in their accounts?**/
 /**7. Which customer has made the most transactions in the Transactions table?**/
 /**8.Which branch has the highest total balance across all of its accounts?**/
