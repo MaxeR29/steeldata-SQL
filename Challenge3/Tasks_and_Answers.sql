@@ -33,5 +33,14 @@ FROM orders
 group by sales_channel
 
 /**8.What is the date of the latest order made by a customer who can receive marketing emails?**/
+with customer_mail as
+(
+SELECT customer_id 
+FROM customers 
+WHERE can_email = 'yes'
+  )
+SELECT MAX(date_shop) 
+from orders t1 inner join customer_mail t2 on t1.customer_id = t2.customer_id
+
 /**9. What is the name of the country with the highest number of orders?**/
 /**10. What is the average age of customers who made orders in the 'vitamins' product category?**/
