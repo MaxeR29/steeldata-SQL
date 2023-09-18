@@ -28,6 +28,10 @@ FROM products
 WHERE category = 'food'
 
 /**7. How many orders were made in each sales channel (sales_channel column) in the orders table?**/
+SELECT sales_channel, count(order_id)
+FROM orders
+group by sales_channel
+
 /**8.What is the date of the latest order made by a customer who can receive marketing emails?**/
 /**9. What is the name of the country with the highest number of orders?**/
 /**10. What is the average age of customers who made orders in the 'vitamins' product category?**/
