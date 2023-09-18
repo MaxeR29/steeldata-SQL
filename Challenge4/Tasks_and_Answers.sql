@@ -1,4 +1,8 @@
 /**1. What are the names of all the customers who live in New York?**/
+SELECT FirstName || ' ' || LastName as 'Full Name'
+FROM Customers
+WHERE City = 'New York'
+
 /**2. What is the total number of accounts in the Accounts table?**/
 /**3. What is the total balance of all checking accounts?**/
 /**4. What is the total balance of all accounts associated with customers who live in Los Angeles?**/
