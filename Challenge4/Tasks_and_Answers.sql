@@ -72,4 +72,15 @@ GROUP BY BranchID
  WHERE t2.Top_Total = 1
 
 /**9. Which customer has the highest total balance across all of their accounts, including savings and checking accounts?**/
+with highest_balance as
+(
+SELECT CustomerID, ROUND(SUM(Balance), 2) as 'Total',
+ROW_NUMBER() OVER (order by ROUND(SUM(Balance), 2) DESC, CustomerID) as 'Top_Total'
+FROM Accounts
+GROUP BY CustomerID
+ )
+ SELECT t1.CustomerID, t1.FirstName || ' ' || t1.LastName as 'Full Name', t2.Total
+ FROM Customers t1 join highest_balance t2 on t1.CustomerID = t2.CustomerID
+ WHERE t2.Top_Total = 1
+
 /**10. Which branch has the highest number of transactions in the Transactions table?**/
