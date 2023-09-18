@@ -1,4 +1,6 @@
 /**1. What are the names of all the countries in the country table?**/
+SELECT COUNTRY_name FROM Country
+
 /**2. What is the total number of customers in the customers table?**/
 /**3. What is the average age of customers who can receive marketing emails (can_email is set to 'yes')?**/
 /**4. How many orders were made by customers aged 30 or older?**/
