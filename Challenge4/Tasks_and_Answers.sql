@@ -13,6 +13,11 @@ from Accounts
 WHERE AccountType = 'Checking'
 
 /**4. What is the total balance of all accounts associated with customers who live in Los Angeles?**/
+Select SUM(BALANCE) as 'Total Balance'
+from Accounts t1 left join Customers t2 on t1.CustomerID = t2.CustomerID
+WHERE t2.City = 'Los Angeles'
+
+
 /**5. Which branch has the highest average account balance?**/
 /**6. Which customer has the highest current balance in their accounts?**/
 /**7. Which customer has made the most transactions in the Transactions table?**/
