@@ -43,4 +43,15 @@ SELECT MAX(date_shop)
 from orders t1 inner join customer_mail t2 on t1.customer_id = t2.customer_id
 
 /**9. What is the name of the country with the highest number of orders?**/
+with top_orders as
+(
+  SELECT Country_id, 
+row_number() over (order by COUNT(order_id) desc, country_id) as 'top_amount' 
+FROM Orders
+group by country_id
+  )
+  SELECT t1.country_name 
+  from country t1 join top_orders t2 on t1.country_id=t2.country_id
+  WHERE t2.top_amount = 1
+
 /**10. What is the average age of customers who made orders in the 'vitamins' product category?**/
