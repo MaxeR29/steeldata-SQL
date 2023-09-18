@@ -42,6 +42,23 @@ ORDER BY SUM(Balance) DESC
   WHERE t2.Top_Balance = 1
 
 /**7. Which customer has made the most transactions in the Transactions table?**/
+with top_transactions as 
+(
+  SELECT t1.CustomerID, COUNT(t2.TransactionID) as 'count_transactions'
+from Accounts t1 join Transactions t2 on t1.AccountID = t2.AccountID
+GROUP BY t1.CustomerID
+HAVING COUNT(t2.TransactionID) = 
+(SELECT MAX(_count) FROM 
+ (
+  SELECT t1.CustomerID, COUNT(t2.TransactionID) as '_count'
+from Accounts t1 join Transactions t2 on t1.AccountID = t2.AccountID
+GROUP BY t1.CustomerID
+   )
+ )
+)
+SELECT t3.CustomerID, t3.FirstName || ' ' || t3.LastName as 'Full Name', t4.count_transactions 
+FROM Customers t3 join top_transactions t4 on t3.CustomerID = t4.CustomerID
+
 /**8.Which branch has the highest total balance across all of its accounts?**/
 /**9. Which customer has the highest total balance across all of their accounts, including savings and checking accounts?**/
 /**10. Which branch has the highest number of transactions in the Transactions table?**/
