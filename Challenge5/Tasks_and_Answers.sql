@@ -4,6 +4,12 @@ FROM Pubs
 GROUP BY Country;
 
 /**2. What is the total sales amount for each pub, including the beverage price and quantity sold?**/
+select t3.pub_name,  SUM(t2.price_per_unit * t1.quantity)
+from sales t1 left join beverages t2 on t1.beverage_id=t2.beverage_id
+			left join pubs t3 on t1.pub_id = t3.pub_id
+GROUP BY t3.pub_name
+ORDER BY t1.pub_id
+
 /**3. Which pub has the highest average rating?**/
 /**4. What are the top 5 beverages by sales quantity across all pubs?**/
 /**5. How many sales transactions occurred on each date?**/
