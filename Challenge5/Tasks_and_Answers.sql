@@ -11,6 +11,17 @@ GROUP BY t3.pub_name
 ORDER BY t1.pub_id
 
 /**3. Which pub has the highest average rating?**/
+with top_ratings as
+(
+SELECT pub_id, AVG(rating) as 'Rating',
+row_number () over (order by AVG(rating) DESC) as 'Top_rating'
+from ratings
+group by pub_id
+  )
+ SELECT t1.pub_name, t2.rating
+ FROM Pubs t1 join top_ratings t2 on t1.pub_id=t2.pub_id
+ WHERE t2.top_rating = 1
+
 /**4. What are the top 5 beverages by sales quantity across all pubs?**/
 /**5. How many sales transactions occurred on each date?**/
 /**6. Find the name of someone that had cocktails and which pub they had it in.**/
