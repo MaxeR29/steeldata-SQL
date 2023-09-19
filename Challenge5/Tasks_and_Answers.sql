@@ -31,6 +31,10 @@ order by sum(quantity) DESC
 LIMIT 5
 
 /**5. How many sales transactions occurred on each date?**/
+select transaction_date, COUNT(sale_id) as 'Transactions Amount'
+from sales
+group by transaction_date
+
 /**6. Find the name of someone that had cocktails and which pub they had it in.**/
 /**7. What is the average price per unit for each category of beverages, excluding the category 'Spirit'?**/
 /**8. Which pubs have a rating higher than the average rating of all pubs?**/
