@@ -1,4 +1,8 @@
 /**1. How many pubs are located in each country?**/
+SELECT Country, COUNT(pub_id) as 'Amount of pubs'
+FROM Pubs
+GROUP BY Country;
+
 /**2. What is the total sales amount for each pub, including the beverage price and quantity sold?**/
 /**3. Which pub has the highest average rating?**/
 /**4. What are the top 5 beverages by sales quantity across all pubs?**/
