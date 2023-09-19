@@ -36,6 +36,19 @@ from sales
 group by transaction_date
 
 /**6. Find the name of someone that had cocktails and which pub they had it in.**/
+with transactions_for_coctails as
+(
+  select t1.pub_id, t2.beverage_name, t1.transaction_date from 
+sales t1 left join beverages t2 on t1.beverage_id = t2.beverage_id
+where pub_id = '3' and t2.category = 'Cocktail'
+  )
+select t2.pub_name, t1.customer_name, t3.beverage_name, t3.transaction_date
+from ratings t1 join pubs t2 on t1.pub_id=t2.pub_id
+			left join transactions_for_coctails t3 on t1.pub_id = t3.pub_id
+where t1.review like '%cocktail%';
+--Added extra information, because on first look for me it was hard task, 
+--but after analyzing it becomes much easier
+
 /**7. What is the average price per unit for each category of beverages, excluding the category 'Spirit'?**/
 /**8. Which pubs have a rating higher than the average rating of all pubs?**/
 /**9. What is the running total of sales amount for each pub, ordered by the transaction date?**/
