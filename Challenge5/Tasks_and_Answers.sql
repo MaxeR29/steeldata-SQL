@@ -23,6 +23,13 @@ group by pub_id
  WHERE t2.top_rating = 1
 
 /**4. What are the top 5 beverages by sales quantity across all pubs?**/
+select row_number() over (order by SUM(t1.quantity) desc, t1.beverage_id) as 'Place',
+t2.beverage_name, SUM(t1.quantity) as 'Beverages sales quantity'
+from sales t1 join beverages t2 on t1.beverage_id=t2.beverage_id
+group by t2.beverage_name
+order by sum(quantity) DESC
+LIMIT 5
+
 /**5. How many sales transactions occurred on each date?**/
 /**6. Find the name of someone that had cocktails and which pub they had it in.**/
 /**7. What is the average price per unit for each category of beverages, excluding the category 'Spirit'?**/
