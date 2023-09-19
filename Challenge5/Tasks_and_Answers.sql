@@ -74,4 +74,22 @@ group by t2.pub_name, t1.transaction_date
 order by t1.transaction_date
 
 /**10. For each country, what is the average price per unit of beverages in each category, and what is the overall average price per unit of beverages across all categories?**/
+with pubs_beverages as 
+(
+SELECT pub_id, beverage_id
+from Sales 
+group by pub_id, beverage_id 
+order by pub_id
+ )
+SELECT t1.country, t3.category, AVG(t3.price_per_unit) as 'Average_Per_Unit',
+ROUND((SELECT AVG(t6.price_per_unit) 
+FROM pubs t4 right join pubs_beverages t5 on t4.pub_id=t5.pub_id
+left join beverages t6 on t5.beverage_id = t6.beverage_id
+ WHERE t1.country = t4.country
+group by t4.country), 2) as 'Average_Per_Country'
+ FROM pubs t1 right join pubs_beverages t2 on t1.pub_id=t2.pub_id
+ left join beverages t3 on t2.beverage_id = t3.beverage_id
+ group by t1.country, t3.category
+order by t1.country
+
 /**11. For each pub, what is the percentage contribution of each category of beverages to the total sales amount, and what is the pub's overall sales amount?**/
