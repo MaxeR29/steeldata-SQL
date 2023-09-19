@@ -56,6 +56,16 @@ WHERE Category != 'Spirit'
 group by category
 
 /**8. Which pubs have a rating higher than the average rating of all pubs?**/
+with ranked as 
+(
+SELECT pub_id, AVG(rating) as 'Average_rating'
+FROM ratings
+GROUP BY pub_id
+  )
+  SELECT t1.pub_name, t2.Average_rating
+  FROM pubs t1 join ranked t2 on t1.pub_id=t2.pub_id
+  WHERE t2.Average_rating > (SELECT AVG(rating) FROM ratings)
+  
 /**9. What is the running total of sales amount for each pub, ordered by the transaction date?**/
 /**10. For each country, what is the average price per unit of beverages in each category, and what is the overall average price per unit of beverages across all categories?**/
 /**11. For each pub, what is the percentage contribution of each category of beverages to the total sales amount, and what is the pub's overall sales amount?**/
