@@ -67,5 +67,11 @@ GROUP BY pub_id
   WHERE t2.Average_rating > (SELECT AVG(rating) FROM ratings)
   
 /**9. What is the running total of sales amount for each pub, ordered by the transaction date?**/
+SELECT t2.pub_name, SUM(t1.quantity * t3.price_per_unit), t1.transaction_date
+FROM Sales t1 join pubs t2 on t1.pub_id=t2.pub_id
+			join beverages t3 on t1.beverage_id=t3.beverage_id
+group by t2.pub_name, t1.transaction_date
+order by t1.transaction_date
+
 /**10. For each country, what is the average price per unit of beverages in each category, and what is the overall average price per unit of beverages across all categories?**/
 /**11. For each pub, what is the percentage contribution of each category of beverages to the total sales amount, and what is the pub's overall sales amount?**/
