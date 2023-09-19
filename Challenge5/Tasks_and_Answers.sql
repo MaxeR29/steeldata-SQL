@@ -50,6 +50,11 @@ where t1.review like '%cocktail%';
 --but after analyzing it becomes much easier
 
 /**7. What is the average price per unit for each category of beverages, excluding the category 'Spirit'?**/
+SELECT Category, AVG(price_per_unit) as 'Average Price'
+FROM Beverages 
+WHERE Category != 'Spirit'
+group by category
+
 /**8. Which pubs have a rating higher than the average rating of all pubs?**/
 /**9. What is the running total of sales amount for each pub, ordered by the transaction date?**/
 /**10. For each country, what is the average price per unit of beverages in each category, and what is the overall average price per unit of beverages across all categories?**/
