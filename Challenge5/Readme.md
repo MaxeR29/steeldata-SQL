@@ -7,3 +7,5 @@ but after analyzing it becomes much easier and I have decided to add extra infor
 
 Task 10: It was a bit hard and interesting task. Think did it good. If you will have some suggestions
 I'm open for it :)
+
+Task 11: Had some questions to this task. 
