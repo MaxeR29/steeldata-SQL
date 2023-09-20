@@ -93,3 +93,16 @@ group by t4.country), 2) as 'Average_Per_Country'
 order by t1.country
 
 /**11. For each pub, what is the percentage contribution of each category of beverages to the total sales amount, and what is the pub's overall sales amount?**/
+SELECT t4.pub_id, t4.category, 
+ROUND((t4.overall_per_category * 100 / t3.overall_sales), 2) as 'Percentage_Contribution'
+, t3.overall_sales FROM 
+(
+SELECT t1.pub_id, ROUND(SUM(t1.quantity * t2.price_per_unit),2) as 'Overall_sales'
+FROM Sales t1 left join Beverages t2 on t1.beverage_id = t2.beverage_id
+GROUP BY t1.pub_id
+  ) t3 RIGHT JOIN
+  (
+SELECT t1.pub_id, t2.category, ROUND(SUM(t1.quantity * t2.price_per_unit),2) as 'Overall_per_category'
+FROM Sales t1 left join Beverages t2 on t1.beverage_id = t2.beverage_id
+GROUP BY t1.pub_id, t2.category
+   ) t4 on t3.pub_id = t4.pub_id
