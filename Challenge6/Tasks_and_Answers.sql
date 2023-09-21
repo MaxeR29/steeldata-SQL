@@ -34,6 +34,18 @@ group by t2.category
 ORDER BY Total_revenue desc LIMIT 1
 
 /**5. Which products had a higher quantity sold compared to the average quantity sold?**/
+with total_sales as 
+(
+SELECT product_id, SUM(quantity) 'Sold_quantity'
+FROM Transactions
+GROUP BY product_id 
+  )
+  SELECT product_id, sold_quantity,
+  (SELECT AVG(sold_quantity) FROM total_sales) as 'Average_quantity'
+  FROM total_sales
+  WHERE sold_quantity > average_quantity
+  GROUP BY Product_id, sold_quantity, Average_quantity
+  
 /**6. What is the average revenue generated per day during the marketing campaigns?**/
 /**7. What is the percentage contribution of each product to the total revenue?**/
 /**8. Compare the average quantity sold during marketing campaigns to outside the marketing campaigns**/
