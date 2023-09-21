@@ -16,6 +16,17 @@ group by product_id
   order by t1.product_id
   
 /**3. What is the total revenue generated from each marketing campaign?**/
+with campaigns_sales as
+(
+select t1.campaign_name, t1.product_id, SUM(t2.quantity) as 'Sales_quantity'
+from marketing_campaigns t1 join transactions t2 on t1.product_id = t2.product_id
+where t2.purchase_date BETWEEN t1.start_date and t1.end_date
+group by t1.campaign_name, t1.product_id
+)
+SELECT t1.campaign_name, ROUND(t2.price * t1.sales_quantity, 2) as 'Total Revenue'
+FROM campaigns_sales t1 join sustainable_clothing t2 
+on t1.product_id=t2.product_id
+
 /**4. What is the top-selling product category based on the total revenue generated?**/
 /**5. Which products had a higher quantity sold compared to the average quantity sold?**/
 /**6. What is the average revenue generated per day during the marketing campaigns?**/
