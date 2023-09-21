@@ -1,4 +1,9 @@
 /**1. How many transactions were completed during each marketing campaign?**/
+select t1.campaign_name, COUNT(t2.transaction_id) as 'Transactions Amount', t1.product_id, t1.start_date, t1.end_date
+from marketing_campaigns t1 join transactions t2 on t1.product_id = t2.product_id
+where t2.purchase_date BETWEEN t1.start_date and t1.end_date
+group by t1.campaign_name, t1.start_date, t1.end_date, t1.product_id
+
 /**2. Which product had the highest sales quantity?**/
 /**3. What is the total revenue generated from each marketing campaign?**/
 /**4. What is the top-selling product category based on the total revenue generated?**/
