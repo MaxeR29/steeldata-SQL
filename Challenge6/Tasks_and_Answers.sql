@@ -28,6 +28,11 @@ FROM campaigns_sales t1 join sustainable_clothing t2
 on t1.product_id=t2.product_id
 
 /**4. What is the top-selling product category based on the total revenue generated?**/
+SELECT t2.category, SUM(t1.quantity * t2.price) as 'Total_revenue'
+FROM Transactions t1 join sustainable_clothing t2 on t1.product_id = t2.product_id
+group by t2.category
+ORDER BY Total_revenue desc LIMIT 1
+
 /**5. Which products had a higher quantity sold compared to the average quantity sold?**/
 /**6. What is the average revenue generated per day during the marketing campaigns?**/
 /**7. What is the percentage contribution of each product to the total revenue?**/
