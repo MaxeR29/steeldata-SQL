@@ -140,3 +140,19 @@ GROUP BY t1.product_id, t3.product_name
  )
 
 /**10. Rank the products by their average daily quantity sold**/
+with RANKING as 
+(
+SELECT Product_id, AVG(SUM_per_day) as 'Average_quantity',
+DENSE_RANK() Over (Order by AVG(SUM_per_day) desc) as 'Rank'
+FROM
+(
+SELECT product_id, SUM(quantity) as 'SUM_Per_Day'
+FROM Transactions
+group by product_id, purchase_date
+order by product_id
+  )
+  group by product_id
+  )
+  SELECT t1.rank, t2.product_name, ROUND(t1.Average_quantity, 2) as 'Average Quantity'
+  FROM RANKING t1 left join sustainable_clothing t2 on t1.product_id=t2.product_id
+  
